@@ -2,11 +2,18 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="./css/styles.css">
-    <title>Document</title>
+    <script defer src="./js/popup.js"></script>
+    
+    <title>Генератор продаж</title>
 </head>
 <body>
-    <button class="button_call_popup">Кликни</button>
+   
+        <dialog id="modal-box" class="modal-box">
+          <div>Получите набор файлов для руководителя:</div>
+          <button id="close-modal-btn" class="close-modal-btn"></button>       
+      </dialog>
+      
+      <button id="show-modal-btn" class="button_call_popup">Кликни</button> 
 </body>
 </html>
