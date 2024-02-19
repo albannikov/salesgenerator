@@ -9,7 +9,7 @@
     display: block;
     margin-left: auto;
     margin-right: auto;
-    margin-top: 20%;
+    margin-top: 15%;
     font-size: 20px;
     line-height: 1.55;
     font-weight: 600;
@@ -20,12 +20,27 @@
     background-color: #0081eb;
 }
 
+.logo {
+/* position: fixed;     */
+    padding-top: 50px;   
+    padding-left: 50px;
+
+    
+}  
+
 .modal-box {
     width: 500px;
     height: 450px;
     border: 1px solid black;
     border-radius: 15px;
     padding: 20px;
+    margin: 0;
+    background-color: white;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 10%;
+    position: relative;
 }
 
 .close-modal-btn {
@@ -36,10 +51,26 @@
     top: 20px;   
     right: 20px; 
     position: absolute;
- 
-
 }
 
+
+dialog {
+    padding: 0;
+    margin: 0;
+    background-color: black;
+    min-width: 100%; 
+    min-height: 100%; 
+    position: relative;
+}
+
+html {
+    height: 100%;
+}
+body {
+    margin: 0;
+    min-height: 100%;
+    overflow: hidden;
+}
 /* .close-modal:hover {
     background: url(../img/close_modal.png);
     width: 14px;
