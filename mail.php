@@ -1,11 +1,44 @@
 <?php
-$to = "albannikov@yandex.ru"; // емайл получателя данных из формы
-$tema = "Форма обратной связи на PHP"; // тема полученного емайла
+$to = "albannikov@yandex.ru"; 
+$tema = "Заявка Банников А.А."; 
 
-$message .= "E-mail: ".$_POST['email']."<br>"; //полученное из формы name=email
-$message .= "Номер телефона: ".$_POST['phone']."<br>"; //полученное из формы name=phone
+$message .= "E-mail: ".$_POST['email']."<br>"; 
+$message .= "Номер телефона: ".$_POST['phone']."<br>"; 
 
-// $headers = 'MIME-Version: 1.0' . "\r\n"; // заголовок соответствует формату плюс символ перевода строки
-$headers .= 'Content-type: text/html; charset=utf-8' . "\r\n"; // указывает на тип посылаемого контента
-mail($to, $tema, $message, $headers); //отправляет получателю на емайл значения переменных
+$headers .= 'Content-type: text/html; charset=utf-8' . "\r\n"; 
+
+
+function filterEmail($field){
+    // Санитизация e-mail
+    $field = filter_var(trim($field), FILTER_SANITIZE_EMAIL);    
+    // Валидация e-mail
+    if(filter_var($field, FILTER_VALIDATE_EMAIL)){
+        return $field;
+    } else{
+        return FALSE;
+    }
+}
+$email = filterEmail($_POST["email"]);
+$tel = $_POST['phone'];
+
+if(preg_match("/(8|7|\+7){0,1}[- \\\\(]{0,}([9][0-9]{2})[- \\\\)]{0,}(([0-9]{2}[- ]{0,}'.
+'[0-9]{2}[- ]{0,}[0-9]{3})|([0-9]{3}[- ]{0,}[0-9]{2}[- ]{0,}[0-9]{2})|([0-9]{3}[- ]{0,}'
+'[0-9]{1}[- ]{0,}[0-9]{3})|([0-9]{2}[- ]{0,}[0-9]{3}[- ]{0,}[0-9]{2}))/", $tel)) {
+    echo 'Телефон норм';
+    echo $tel;
+  } else {
+    echo 'Телефон ошибка';
+    echo $tel;
+  }
+
+// Валидация e-mail
+    if($email == FALSE){
+        echo 'Пожалуйста, введите действительный адрес электронной почты.';
+    } else {
+        // Отправляем электронную почту
+    if(mail($to, $tema, $message, $headers)){
+        echo '<p class="success">Ваше сообщение было отправлено успешно!</p>';
+    } 
+    }
+
 ?>
