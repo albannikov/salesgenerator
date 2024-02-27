@@ -58,9 +58,11 @@ $data = [
     'client_id' => 'ed5139cb-dbab-46f0-80d1-6ad251f8a6bc',
     'client_secret' => 'LSaCXzEYMG75RqlyJ93oB8eDG9p49Yx9IRgrU6pzaB7wCTdutuN1DLKGUbYRunQl',
     'grant_type' => 'authorization_code',
-    'code' => 'def50200ea246114319a7ade605c2abf83cdfa6d6e8efb93caf6cd695bbc1510acf8c1bfe494e6408828b507751791e6a261e07f9ed37a1c296f26cf864933394e57ccc95af475e7d3478a3f6e0057d21ed505372eebb8c432f1fa234f187b762fcf9149117a50f602ce3a433c064489de316b686dfd45761a870194f4638b0cbe4743c31b56624f2a5b7cb7d97af2fe5826e722429a41c7f5fa382f2657e6396bce9f720975bd651d9e8c5e44cb1b8fdb7aebf10fcc315bea5420afc353a0161493e25d11cb1c16dcbef236c81730ebd48870a6c3fd197cef1934963b3d1f053a00c7a8e5d1a3172a40224aa86144e4857ddee354ab1126f47e84790c2b3cb731b61ab0b725a0fbed823ba9f03963867f3d934bc693a0c6a820e526f9a913b4287efbaf3a32cb390e4920cafcc505a66b4cd828fad160a52f69a26ebaca6673e551ecf856edd92212bf1efe92071bee17f173267feb499f7f8c2b351efaf4726edf689e1f70c6c212c7f141375efd16966b746391f5bfba4cf122dfdbd46a5ec6d5b15f06ce28b9860d2b8ec6cd5d4bdab61c30c8077d1e246009c30a54a72b481c5cd5cf9cb322c7b0fe25babd08548777fc3fa418fefbdc633916c5a5a9b533c9f0c9c0bb5a94dc028af715967a7b25d53f43be79a1226a2c2859379fc8fe94f5e014d36c4fdb6029',
+    'code' => 'def502003c9312f5406f570fa4462fca9a2410abfcd8b8212193143f6ab53a65d399a4220c258c7b8e3459375c6a1d0b211e8a488848ed8009646d32cdbc9f413c74f89f5d9dbc616b67a4a5204d96c0cebaaffc1610fb52d19646403bea8d36d1b4b8b203044b6e58b1091003c48271e2c7c9168bf57f2c619c28eb80161928969226ab5490f051561e2e387259224e7c0687a8929be04cea45f8c9200cd07de8404edcd16b11efbf70a49f13524451e7f25976a45a253dc4c7f3e86c556fd0880eb00ac31c2e9b0cc24db3dde76e4c97e442b714b8ca95bfe906679a1ea3fc973c613ade8771598c6c70cce78675f32e844d0f4b55b7df5fcda251fd5cf564320d8f779576f73df68a723c5af509664941144ed478fb016b50f8a768f89e5cc0874ce7fbac3e6a38ac1d57cb0af3c52bb0b8da2313270bbdc652986d9290b203fbdcfb7206b4af170f26e05bb79675e49bcd0e26eb4b1111b2b00629237b1ef06c5d714e120721d30c36de8dcb403a556bd0cd218f627131998cf9bf9714aa23a611db4abfbd227671bc3e73263c433796945545220c73b5e2cf3153d72a7ebbd28bc15ffa69f769c4230996abc0d2fbeea6e906efc21399e17859f85a61de7f86a93a5cbc6f0e71d196a168b5f37d4674ce79fe5028243415268958dec909d0f3669262be5b45674e',
     'redirect_uri' => 'https://alexeybannikov.ru',    
 ];
+
+
 
 
 $curl = curl_init(); //Сохраняем дескриптор сеанса cURL
@@ -113,151 +115,6 @@ $access_token = $response['access_token']; //Access токен
 $refresh_token = $response['refresh_token']; //Refresh токен
 $token_type = $response['token_type']; //Тип токена
 $expires_in = $response['expires_in']; //Через сколько действие токена истекает
-
-
-
-//amo
-
-
-
-//ПОЛУЧАЕМ ДАННЫЕ АККАУНТА
-$link='https://'.$subdomain.'.amocrm.ru/private/api/v2/json/accounts/current'; #$subdomain уже объявляли выше
-$curl=curl_init(); #Сохраняем дескриптор сеанса cURL
-#Устанавливаем необходимые опции для сеанса cURL
-curl_setopt($curl,CURLOPT_RETURNTRANSFER,true);
-curl_setopt($curl,CURLOPT_USERAGENT,'amoCRM-API-client/1.0');
-curl_setopt($curl,CURLOPT_URL,$link);
-curl_setopt($curl,CURLOPT_HEADER,false);
-curl_setopt($curl,CURLOPT_COOKIEFILE,dirname(__FILE__).'/cookie.txt'); #PHP>5.3.6 dirname(__FILE__) -> __DIR__
-curl_setopt($curl,CURLOPT_COOKIEJAR,dirname(__FILE__).'/cookie.txt'); #PHP>5.3.6 dirname(__FILE__) -> __DIR__
-curl_setopt($curl,CURLOPT_SSL_VERIFYPEER,0);
-curl_setopt($curl,CURLOPT_SSL_VERIFYHOST,0);
-$out=curl_exec($curl); #Инициируем запрос к API и сохраняем ответ в переменную
-$code=curl_getinfo($curl,CURLINFO_HTTP_CODE);
-curl_close($curl);
-$Response=json_decode($out,true);
-$account=$Response['response']['account'];
-//echo '<b>Данные аккаунта:</b>'; echo '<pre>'; print_r($Response); echo '</pre>';
-
-
-//ПОЛУЧАЕМ СУЩЕСТВУЮЩИЕ ПОЛЯ
-$amoAllFields = $account['custom_fields']; //Все поля
-$amoConactsFields = $account['custom_fields']['contacts']; //Поля контактов
-//echo '<b>Поля из амо:</b>'; echo '<pre>'; print_r($amoConactsFields); echo '</pre>';
-
-
-//ФОРМИРУЕМ МАССИВ С ЗАПОЛНЕННЫМИ ПОЛЯМИ КОНТАКТА
-//Стандартные поля амо:
-$sFields = array_flip(array(
-		'PHONE', //Телефон. Варианты: WORK, WORKDD, MOB, FAX, HOME, OTHER
-		'EMAIL' //Email. Варианты: WORK, PRIV, OTHER
-	)
-);
-
-//Проставляем id этих полей из базы амо
-foreach($amoConactsFields as $afield) {
-	if(isset($sFields[$afield['code']])) {
-		$sFields[$afield['code']] = $afield['id'];
-	}
-}
-
-
-//ДОБАВЛЯЕМ СДЕЛКУ
-$leads['request']['leads']['add']=array(
-	array(
-		'name' => $lead_name,
-		'status_id' => $lead_status_id, //id статуса
-		'responsible_user_id' => $responsible_user_id, //id ответственного по сделке
-		//'date_create'=>1298904164, //optional
-		//'price'=>300000,
-		//'tags' => 'Important, USA', #Теги
-		//'custom_fields'=>array()
-	)
-);
-
-$link='https://'.$subdomain.'.amocrm.ru/private/api/v2/json/leads/set';
-
-$curl=curl_init(); #Сохраняем дескриптор сеанса cURL
-#Устанавливаем необходимые опции для сеанса cURL
-curl_setopt($curl,CURLOPT_RETURNTRANSFER,true);
-curl_setopt($curl,CURLOPT_USERAGENT,'amoCRM-API-client/1.0');
-curl_setopt($curl,CURLOPT_URL,$link);
-curl_setopt($curl,CURLOPT_CUSTOMREQUEST,'POST');
-curl_setopt($curl,CURLOPT_POSTFIELDS,json_encode($leads));
-curl_setopt($curl,CURLOPT_HTTPHEADER,array('Content-Type: application/json'));
-curl_setopt($curl,CURLOPT_HEADER,false);
-curl_setopt($curl,CURLOPT_COOKIEFILE,dirname(__FILE__).'/cookie.txt'); #PHP>5.3.6 dirname(__FILE__) -> __DIR__
-curl_setopt($curl,CURLOPT_COOKIEJAR,dirname(__FILE__).'/cookie.txt'); #PHP>5.3.6 dirname(__FILE__) -> __DIR__
-curl_setopt($curl,CURLOPT_SSL_VERIFYPEER,0);
-curl_setopt($curl,CURLOPT_SSL_VERIFYHOST,0);
-
-$out=curl_exec($curl); #Инициируем запрос к API и сохраняем ответ в переменную
-$code=curl_getinfo($curl,CURLINFO_HTTP_CODE);
-$Response=json_decode($out,true);
-//echo '<b>Новая сделка:</b>'; echo '<pre>'; print_r($Response); echo '</pre>';
-if(is_array($Response['response']['leads']['add']))
-	foreach($Response['response']['leads']['add'] as $lead) {
-		$lead_id = $lead["id"]; //id новой сделки
-	};
-//ДОБАВЛЯЕМ СДЕЛКУ - КОНЕЦ
-
-
-//ДОБАВЛЕНИЕ КОНТАКТА
-$contact = array(
-	'name' => $contact_name,
-	'linked_leads_id' => array($lead_id), //id сделки
-	'responsible_user_id' => $responsible_user_id, //id ответственного
-	'custom_fields'=>array(
-		array(
-			'id' => $sFields['PHONE'],
-			'values' => array(
-				array(
-					'value' => $contact_phone,
-					'enum' => 'MOB'
-				)
-			)
-		),
-		array(
-			'id' => $sFields['EMAIL'],
-			'values' => array(
-				array(
-					'value' => $contact_email,
-					'enum' => 'WORK'
-				)
-			)
-		)
-	)
-);
-
-$set['request']['contacts']['add'][]=$contact;
-
-#Формируем ссылку для запроса
-$link='https://'.$subdomain.'.amocrm.ru/private/api/v2/json/contacts/set';
-$curl=curl_init(); #Сохраняем дескриптор сеанса cURL
-#Устанавливаем необходимые опции для сеанса cURL
-curl_setopt($curl,CURLOPT_RETURNTRANSFER,true);
-curl_setopt($curl,CURLOPT_USERAGENT,'amoCRM-API-client/1.0');
-curl_setopt($curl,CURLOPT_URL,$link);
-curl_setopt($curl,CURLOPT_CUSTOMREQUEST,'POST');
-curl_setopt($curl,CURLOPT_POSTFIELDS,json_encode($set));
-curl_setopt($curl,CURLOPT_HTTPHEADER,array('Content-Type: application/json'));
-curl_setopt($curl,CURLOPT_HEADER,false);
-curl_setopt($curl,CURLOPT_COOKIEFILE,dirname(__FILE__).'/cookie.txt'); #PHP>5.3.6 dirname(__FILE__) -> __DIR__
-curl_setopt($curl,CURLOPT_COOKIEJAR,dirname(__FILE__).'/cookie.txt'); #PHP>5.3.6 dirname(__FILE__) -> __DIR__
-curl_setopt($curl,CURLOPT_SSL_VERIFYPEER,0);
-curl_setopt($curl,CURLOPT_SSL_VERIFYHOST,0);
-
-$out=curl_exec($curl); #Инициируем запрос к API и сохраняем ответ в переменную
-$code=curl_getinfo($curl,CURLINFO_HTTP_CODE);
-CheckCurlResponse($code);
-
-$Response=json_decode($out,true);
-//ДОБАВЛЕНИЕ КОНТАКТА - КОНЕЦ
-
-//amo
-
-
-
 
 
 ?>
