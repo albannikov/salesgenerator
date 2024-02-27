@@ -43,22 +43,17 @@ if(preg_match("/(8|7|\+7){0,1}[- \\\\(]{0,}([9][0-9]{2})[- \\\\)]{0,}(([0-9]{2}[
 // Отправили на почту, приступаем к отправке в Amo
 
 
- $subdomain     = 'fedorovnapelageya'; // поддомен AmoCRM
-// $client_secret = 'LSaCXzEYMG75RqlyJ93oB8eDG9p49Yx9IRgrU6pzaB7wCTdutuN1DLKGUbYRunQl'; // Секретный ключ
-// $client_id     = 'ed5139cb-dbab-46f0-80d1-6ad251f8a6bc'; // ID интеграции
-// $code          = 'def502008e6b9b94eaf61457193fb6d73cfebf37e8d09b143993770acc5d30916ad201ab0659cf0edfa602e774407c9764071dfbce9663a7be07342be4956b7553ad2db3f65ae45f4ab39b469b86a8ea723d6dbf1a9af3330f85e69b3cb83d34401c46b3b93f679066864adb5db4c9b4ff86c80332257aca58ccf0eff296b83c43e399d6258c99d3da9e18782d467c26602be829a10da533424b99d2a912b330a0c4e0a33c56fd2d5d0d64a759d4f0962fc41f8f45ec738f8f4a031b0e35185be6716785ff80d0324ba1b746f69942a1bfb7ec0dd7fd078e4e4439a1717974242faaba0b457e2000ff796a262f3730fb73fe6ae6a051f8d7aee1b489c1fe9ef93878936324500e8763ffe7361d96071c98ac483c6e758f5e02930ccb55bf2726ed2051c3a3935450375b52fc02265cd04af2d4ad802cd703a05bdc3a9c724221bcd8738a50940893c0adb89d717a55080c5e7a773a61cf89fb275f0ee45efd8c5001bd92ab36cd911c3bac7ca58d1d626e8ca2d49397823a6ea7ca38b55066561221c7f7cb46c5f9db7d9deb62b860d8b71df768d48e608cfd8b5534a177042bbe4bc39ea9313b25845873a4781cd15d3e7aa80b861684bc3c83c72f55d402f919ca01a67149512ee5f77d42d9a118c08398c7c74379e4f4a09ee9adab148f5512f427dc67bdeed9426f'; // Код авторизации
-// $token_file    = 'tokens.txt';
-// $redirect_uri  = 'https://alexeybannikov.ru/salesgenerator/mail.php';
-
-
-
+$subdomain     = 'fedorovnapelageya'; // поддомен AmoCRM
 $link = 'https://' . $subdomain . '.amocrm.ru/oauth2/access_token'; //Формируем URL для запроса
+
+
+
 
 $data = [
     'client_id' => 'ed5139cb-dbab-46f0-80d1-6ad251f8a6bc',
     'client_secret' => 'LSaCXzEYMG75RqlyJ93oB8eDG9p49Yx9IRgrU6pzaB7wCTdutuN1DLKGUbYRunQl',
     'grant_type' => 'authorization_code',
-    'code' => 'def502003c9312f5406f570fa4462fca9a2410abfcd8b8212193143f6ab53a65d399a4220c258c7b8e3459375c6a1d0b211e8a488848ed8009646d32cdbc9f413c74f89f5d9dbc616b67a4a5204d96c0cebaaffc1610fb52d19646403bea8d36d1b4b8b203044b6e58b1091003c48271e2c7c9168bf57f2c619c28eb80161928969226ab5490f051561e2e387259224e7c0687a8929be04cea45f8c9200cd07de8404edcd16b11efbf70a49f13524451e7f25976a45a253dc4c7f3e86c556fd0880eb00ac31c2e9b0cc24db3dde76e4c97e442b714b8ca95bfe906679a1ea3fc973c613ade8771598c6c70cce78675f32e844d0f4b55b7df5fcda251fd5cf564320d8f779576f73df68a723c5af509664941144ed478fb016b50f8a768f89e5cc0874ce7fbac3e6a38ac1d57cb0af3c52bb0b8da2313270bbdc652986d9290b203fbdcfb7206b4af170f26e05bb79675e49bcd0e26eb4b1111b2b00629237b1ef06c5d714e120721d30c36de8dcb403a556bd0cd218f627131998cf9bf9714aa23a611db4abfbd227671bc3e73263c433796945545220c73b5e2cf3153d72a7ebbd28bc15ffa69f769c4230996abc0d2fbeea6e906efc21399e17859f85a61de7f86a93a5cbc6f0e71d196a168b5f37d4674ce79fe5028243415268958dec909d0f3669262be5b45674e',
+    'code' => 'def50200d2e3a8e86afb741de7ea086002bb2b3e04e8862429fc076082818c084fee4a6d49d9b59d435de5d20088d97c0e031a8445651a88bd5b4f893acfbd940099f25e4945bb6955f950b97fdfc0b4283e99e10b27191b23893465f039c80dee3d43b9e705f73f21734f20f4a311bf6e5a05b6c72a62a0e07d4cec81dc7786ebf0ab1e298146460d32576eca81c21040741352eea0ae63a334ababe0e6dde6a01ea003af458ed25757f8003a5c4396734f4184fe07e17f19380ea41d8fc77090c21f735e88ca366549a134aca2bf84ce4755a98d22f65e1fc9ec4c8913a973d6d0285200f0d21d1df4e79ef78caac54058b028a58d636939519f6297ae03d095b5ad2694c745b491a610ec8407765c2094eb29f01002d0e71b9650d7b6c29ba289400e6f53276d4569c7d31897872bd88084b6780747b56184e2826f00b5f230ab34099065bab8e2bdd048eb54da756f1d96296c7bcc45393ce8aef634941b8a6311cb6b46267e94ab56af38503962df763791f0c35936863ae3dcd6b1409ca0708b2b2159c1325d103c090b9bb2874d963e5c7813eda6bde88f127bca211b6ef8fe8f95d06b08c02d55d85821db2910300c601731a53150a806e2daa817696f6b3cdc1b4236209d0f914d097715329dca8e138c6dd6cf8933781cde6f90159bbb7898787906d2e899',
     'redirect_uri' => 'https://alexeybannikov.ru',    
 ];
 
@@ -74,6 +69,8 @@ curl_setopt($curl,CURLOPT_HTTPHEADER,['Content-Type:application/json']);
 curl_setopt($curl,CURLOPT_HEADER, false);
 curl_setopt($curl,CURLOPT_CUSTOMREQUEST, 'POST');
 curl_setopt($curl,CURLOPT_POSTFIELDS, json_encode($data));
+curl_setopt($curl,CURLOPT_COOKIEFILE,dirname(__FILE__).'/cookie.txt'); 
+curl_setopt($curl,CURLOPT_COOKIEJAR,dirname(__FILE__).'/cookie.txt');
 curl_setopt($curl,CURLOPT_SSL_VERIFYPEER, 1);
 curl_setopt($curl,CURLOPT_SSL_VERIFYHOST, 2);
 $out = curl_exec($curl); //Инициируем запрос к API и сохраняем ответ в переменную
@@ -91,7 +88,7 @@ $errors = [
     503 => 'Service unavailable',
 ];
 
-echo $out;
+
 
 try
 {
@@ -115,6 +112,31 @@ $access_token = $response['access_token']; //Access токен
 $refresh_token = $response['refresh_token']; //Refresh токен
 $token_type = $response['token_type']; //Тип токена
 $expires_in = $response['expires_in']; //Через сколько действие токена истекает
+
+///////////////////////////////////////////////////////////////
+
+
+echo '<b>Авторизация:</b>'; echo '<pre>'; print_r($response); echo '</pre>';
+
+//ПОЛУЧАЕМ ДАННЫЕ АККАУНТА
+$link='https://'.$subdomain.'.amocrm.ru/private/api/v2/json/accounts/current'; #$subdomain уже объявляли выше
+$curl=curl_init(); #Сохраняем дескриптор сеанса cURL
+#Устанавливаем необходимые опции для сеанса cURL
+curl_setopt($curl,CURLOPT_RETURNTRANSFER,true);
+curl_setopt($curl,CURLOPT_USERAGENT,'amoCRM-oAuth-client/1.0');
+curl_setopt($curl,CURLOPT_USERAGENT,'amoCRM-API-client/1.0');
+curl_setopt($curl,CURLOPT_URL,$link);
+curl_setopt($curl,CURLOPT_HEADER,false);
+curl_setopt($curl,CURLOPT_COOKIEFILE,dirname(__FILE__).'/cookie.txt'); #PHP>5.3.6 dirname(__FILE__) -> __DIR__
+curl_setopt($curl,CURLOPT_COOKIEJAR,dirname(__FILE__).'/cookie.txt'); #PHP>5.3.6 dirname(__FILE__) -> __DIR__
+curl_setopt($curl,CURLOPT_SSL_VERIFYPEER,0);
+curl_setopt($curl,CURLOPT_SSL_VERIFYHOST,0);
+$out=curl_exec($curl); #Инициируем запрос к API и сохраняем ответ в переменную
+$code=curl_getinfo($curl,CURLINFO_HTTP_CODE);
+curl_close($curl);
+$Response=json_decode($out,true);
+$account=$Response['response']['account'];
+echo '<b>Данные аккаунта:</b>'; echo '<pre>'; print_r($Response); echo '</pre>';
 
 
 ?>
